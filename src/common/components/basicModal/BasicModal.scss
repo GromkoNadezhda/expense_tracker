@@ -1,0 +1,33 @@
+@import '../../../style/helpers/variables.scss';
+
+.basic-modal {
+  &__wrapper {
+    width: 30%;
+    height: 10em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: $paddingSize * 4;
+    border-radius: 5px;
+    background-color: $grey;
+    color: $black;
+    transform: translate(-50%, -50%);
+
+    .basic-modal__title {
+      font-size: $subtitle-size;
+      font-weight: $bold;
+    }
+
+    .basic-modal__input {
+      @extend %input;
+    }
+
+    .basic-modal__btn {
+      @extend %buttonOutlined;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { Layout } from "@components/Layout/Layout";
-import { NAVIGATION } from "@constants/constants";
-import { Wallets } from "@components/Wallets/Wallets";
+import { Layout } from "./Layout/Layout";
+import { NAVIGATION } from "@common/constants/constants";
+import { Wallets } from "@app/wallets/Wallets";
 import "./style/App.scss";
 
 export const App = () => (

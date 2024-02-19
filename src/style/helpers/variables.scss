@@ -35,9 +35,7 @@ $paddingSize: 0.25em;
   padding: $paddingSize;
   background-color: $primary;
   border-radius: 5px;
-  color: $black;
   font-size: $content-size;
-  font-family: $font;
   cursor: pointer;
 }
 %buttonOutlined {
