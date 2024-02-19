@@ -1,0 +1,36 @@
+@import "../../style/helpers/variables.scss";
+
+.menu-list {
+  position: relative;
+
+  &__button {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+
+    .menu-list__icon {
+      color: $grey;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    left: 2em;
+    display: flex;
+    flex-direction: column;
+    padding: $paddingSize * 2;
+    background-color: $grey;
+    color: $black;
+    opacity: 0;
+    animation: open 1.5s forwards;
+  }
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

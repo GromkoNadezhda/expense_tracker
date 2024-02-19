@@ -1,0 +1,20 @@
+@import "../../style/helpers/variables.scss";
+
+.navigation-bar {
+  @extend %mainBlock-size;
+
+  &__menu-position {
+    font-size: $subtitle-size;
+    color: $grey;
+    margin-bottom: $paddingSize * 4;
+    cursor: pointer;
+  }
+
+  &__menu-position:hover {
+    color: $primary;
+  }
+
+  &__menu-position:active {
+    color: $black;
+  }
+}

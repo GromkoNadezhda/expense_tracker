@@ -1,0 +1,16 @@
+@import "../../style/helpers/variables.scss";
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &__title {
+    font-size: $subtitle-size;
+    color: $background;
+    background-color: $primary;
+    border-radius: 5px;
+    padding: $paddingSize * 2;
+  }
+}

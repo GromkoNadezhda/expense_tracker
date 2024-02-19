@@ -1,0 +1,76 @@
+$font: "Poppins";
+
+//page-size
+$blockWidth: 1120px;
+
+//color
+$primary: #3b945e;
+$secondary: #57bb99;
+$white: rgba(255, 255, 255, 0.726);
+$black: #182627;
+$grey: #f2f2f2;
+$background: #65ccb7;
+
+//font-size
+$title-size: 2rem;
+$subtitle-size: 1.3rem;
+$content-size: 1rem;
+$normal: 400;
+$bold: 600;
+$semi-bold: 500;
+// $radius:20px;
+$paddingSize: 0.25em;
+// $marginSize: 8px;
+
+//templates
+%mainBlock-size {
+  width: 70%;
+  padding: $paddingSize * 9;
+  margin: 0 auto;
+
+  // background-color: $primary;
+}
+%buttonContained {
+  width: 10em;
+  padding: $paddingSize;
+  background-color: $primary;
+  border-radius: 5px;
+  color: $black;
+  font-size: $content-size;
+  font-family: $font;
+  cursor: pointer;
+}
+%buttonOutlined {
+  background-color: inherit;
+  width: 7em;
+  border: 1px solid $primary;
+  color: $black;
+}
+
+%hover {
+  background-color: $secondary;
+  transition: 1s;
+}
+
+%input {
+  outline: none;
+  padding: $paddingSize * 2;
+  background-color: inherit;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $primary;
+  color: $primary;
+  font-size: $content-size;
+}
+
+// @mixin contentBlocks{
+// max-width: 1100px;
+// width: 100%;
+// margin: 0 auto;
+// }
+
+// @mixin borderShadow {
+//     border-radius: $radius;
+//     box-shadow: 5px 5px 10px 1px $secondary;
+// }
