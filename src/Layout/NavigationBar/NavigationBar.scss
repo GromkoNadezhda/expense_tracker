@@ -3,18 +3,24 @@
 .navigation-bar {
   @extend %mainBlock-size;
 
-  &__menu-position {
-    font-size: $subtitle-size;
-    color: $grey;
-    margin-bottom: $paddingSize * 4;
-    cursor: pointer;
-  }
+  &__menu {
+    display: flex;
+    height: 4em;
+    justify-content: center;
 
-  &__menu-position:hover {
-    color: $primary;
-  }
+    .navigation-bar__menu-position {
+      @include buttonText($grey, $subtitle-size);
+    }
 
-  &__menu-position:active {
-    color: $black;
+    .navigation-bar__menu-position:first-child {
+      padding-right: $paddingSize * 4;
+    }
+    .navigation-bar__menu-position:hover {
+      @include hoverText($primary);
+    }
+
+    .navigation-bar__menu-position:focus {
+      color: $black;
+    }
   }
 }

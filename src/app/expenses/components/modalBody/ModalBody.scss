@@ -1,0 +1,14 @@
+@import '../../../../style/helpers/variables.scss';
+
+.modal-body{
+    max-width: 300px;
+    width: 100%;
+    height: 20em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: $paddingSize*4;
+    &__select{
+        width: inherit;
+    }
+}

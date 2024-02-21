@@ -1,9 +1,10 @@
-@import '../../../style/helpers/variables.scss';
+@import "../../../style/helpers/variables.scss";
 
 .basic-modal {
   &__wrapper {
-    width: 30%;
-    height: 10em;
+    max-width: 500px;
+    width: 100%;
+    height: max-content;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18,16 +19,19 @@
     transform: translate(-50%, -50%);
 
     .basic-modal__title {
+      margin-bottom: $paddingSize * 4;
       font-size: $subtitle-size;
       font-weight: $bold;
     }
 
     .basic-modal__input {
       @extend %input;
+      margin-bottom: $paddingSize * 4;
     }
 
     .basic-modal__btn {
       @extend %buttonOutlined;
+      margin-bottom: $paddingSize * 4;
     }
   }
 }

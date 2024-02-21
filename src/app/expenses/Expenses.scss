@@ -1,0 +1,45 @@
+@import "../../style/helpers/variables.scss";
+
+.expenses {
+  @extend %mainBlock-size;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: $black;
+  &__text {
+    color: $primary;
+    font-size: $subtitle-size;
+  }
+
+  &__title {
+    font-size: $title-size;
+    margin-bottom: $paddingSize * 3;
+  }
+
+  &__wrapper-btn {
+    width: inherit;
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .expenses__contained {
+      @extend %buttonContained;
+    }
+
+    .expenses__contained:hover {
+      @extend %hoverContained;
+    }
+
+    .expenses__text{
+        @include buttonText ($secondary, $content-size);
+    }
+
+    .expenses__text:hover{
+    @include hoverText ($primary)
+    }
+  }
+}

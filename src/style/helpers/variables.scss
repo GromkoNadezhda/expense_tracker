@@ -25,29 +25,30 @@ $paddingSize: 0.25em;
 //templates
 %mainBlock-size {
   width: 70%;
-  padding: $paddingSize * 9;
+  padding: $paddingSize * 5;
   margin: 0 auto;
-
-  // background-color: $primary;
 }
+
 %buttonContained {
   width: 10em;
   padding: $paddingSize;
   background-color: $primary;
   border-radius: 5px;
   font-size: $content-size;
+  color: $black;
   cursor: pointer;
 }
+
+%hoverContained {
+  background-color: $secondary;
+  transition: 1s;
+}
+
 %buttonOutlined {
   background-color: inherit;
   width: 7em;
   border: 1px solid $primary;
   color: $black;
-}
-
-%hover {
-  background-color: $secondary;
-  transition: 1s;
 }
 
 %input {
@@ -72,3 +73,17 @@ $paddingSize: 0.25em;
 //     border-radius: $radius;
 //     box-shadow: 5px 5px 10px 1px $secondary;
 // }
+
+//mixin
+
+@mixin buttonText($color, $fontSize) {
+  background-color: inherit;
+  cursor: pointer;
+  color: $color;
+  font-size: $fontSize;
+}
+
+@mixin hoverText($color) {
+  color: $color;
+  background-color: inherit;
+}

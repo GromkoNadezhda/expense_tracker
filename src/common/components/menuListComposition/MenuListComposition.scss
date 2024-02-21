@@ -1,8 +1,7 @@
-@import '../../../style/helpers/variables.scss';
+@import "../../../style/helpers/variables.scss";
 
 .menu-list {
   position: relative;
-
   &__button {
     background-color: inherit;
     border: none;
@@ -11,6 +10,10 @@
     .menu-list__icon {
       color: $grey;
     }
+  }
+
+  &__button:hover {
+    color: $primary;
   }
 
   &__content {

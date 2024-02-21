@@ -37,7 +37,7 @@
     }
 
     .wallets__btn:hover {
-      @extend %hover;
+      @extend %hoverContained;
     }
     .wallets__btn-text{
       color: $black;

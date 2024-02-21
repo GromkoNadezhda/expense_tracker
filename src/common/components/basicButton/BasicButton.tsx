@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { ReactNode } from "react";
 import "./BasicButton.scss";
 
-type TButtonVariant = "contained" | "outlined";
+export type TButtonVariant = "contained" | "outlined" | "text";
 
 interface IButtonProps {
   variant?: TButtonVariant;
