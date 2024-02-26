@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { ReactNode } from "react";
-import "./BasicButton.scss";
 
 export type TButtonVariant = "contained" | "outlined" | "text";
 

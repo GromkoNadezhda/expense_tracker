@@ -1,9 +1,21 @@
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import './BasicDatePicker.scss'
+import { Stack } from "@mui/material";
 
-export const BasicDatePicker = () => (
+export const BasicDatePicker = ({
+  onChange,
+}: {
+  onChange: (newValue: string) => void;
+}) => (
   <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <DatePicker  className="date-picker"/>
+    <Stack>
+      <DatePicker
+        className="date-picker"
+        label="Select a date"
+        onChange={(newValue: { $d: string } | null) => {
+          if (newValue) onChange(newValue.$d.toString());
+        }}
+      />
+    </Stack>
   </LocalizationProvider>
 );

@@ -8,6 +8,7 @@
   justify-content: space-around;
   align-items: center;
   color: $black;
+
   &__text {
     color: $primary;
     font-size: $subtitle-size;
@@ -20,26 +21,25 @@
 
   &__wrapper-btn {
     width: inherit;
-    height: 5em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  }
 
-    .expenses__contained {
-      @extend %buttonContained;
-    }
+  .expenses__contained {
+    @extend %buttonContained;
 
-    .expenses__contained:hover {
+    &:hover {
       @extend %hoverContained;
     }
+  }
 
-    .expenses__text{
-        @include buttonText ($secondary, $content-size);
-    }
+  .expenses__text {
+    @include buttonText($secondary, $content-size);
 
-    .expenses__text:hover{
-    @include hoverText ($primary)
+    &:hover {
+      @include hoverText($primary);
     }
   }
 }

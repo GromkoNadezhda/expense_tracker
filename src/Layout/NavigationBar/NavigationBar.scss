@@ -5,21 +5,18 @@
 
   &__menu {
     display: flex;
-    height: 4em;
     justify-content: center;
+    gap: $paddingSize * 4;
+  }
 
-    .navigation-bar__menu-position {
-      @include buttonText($grey, $subtitle-size);
-    }
+  .navigation-bar__menu-button {
+    @include buttonText($grey, $subtitle-size);
 
-    .navigation-bar__menu-position:first-child {
-      padding-right: $paddingSize * 4;
-    }
-    .navigation-bar__menu-position:hover {
+    &:hover {
       @include hoverText($primary);
     }
 
-    .navigation-bar__menu-position:focus {
+    &:focus {
       color: $black;
     }
   }

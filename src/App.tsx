@@ -1,8 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Layout } from "./Layout/Layout";
-import { NAVIGATION } from "@common/constants/constants";
-import { Wallets } from "@app/wallets/Wallets";
-import { Expenses } from "@app/expenses/Expenses";
+import { ROUTES_LIST } from "@common/constants/constants";
 import "./style/App.scss";
 
 export const App = () => (
@@ -10,8 +8,9 @@ export const App = () => (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path={NAVIGATION.WALLETS} element={<Wallets />} />
-          <Route path={NAVIGATION.EXPENSES} element={<Expenses />} />
+          {ROUTES_LIST.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
         </Routes>
       </Layout>
     </BrowserRouter>

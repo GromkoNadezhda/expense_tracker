@@ -17,21 +17,21 @@
     background-color: $grey;
     color: $black;
     transform: translate(-50%, -50%);
+  }
+  
+  .basic-modal__title {
+    margin-bottom: $paddingSize * 4;
+    font-size: $subtitle-size;
+    font-weight: $bold;
+  }
 
-    .basic-modal__title {
-      margin-bottom: $paddingSize * 4;
-      font-size: $subtitle-size;
-      font-weight: $bold;
-    }
+  .basic-modal__input {
+    @extend %input;
+    margin-bottom: $paddingSize * 4;
+  }
 
-    .basic-modal__input {
-      @extend %input;
-      margin-bottom: $paddingSize * 4;
-    }
-
-    .basic-modal__btn {
-      @extend %buttonOutlined;
-      margin-bottom: $paddingSize * 4;
-    }
+  .basic-modal__btn {
+    @extend %buttonOutlined;
+    margin-bottom: $paddingSize * 4;
   }
 }

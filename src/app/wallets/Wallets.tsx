@@ -4,7 +4,11 @@ import { IWallet } from "./type";
 import { WALLET_ID, WALLET_TYPE } from "./constants";
 import { selectWallets } from "@store/selectors";
 import { addWallets } from "@store/expensesSlice";
-import { BasicButton, BasicModal, MenuListComposition } from "@common/components";
+import {
+  BasicButton,
+  BasicModal,
+  MenuListComposition,
+} from "@common/components";
 import "./Wallets.scss";
 
 const INITIAL_STATE = {

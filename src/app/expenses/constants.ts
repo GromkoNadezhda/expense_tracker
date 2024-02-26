@@ -1,15 +1,21 @@
-import { WALLET_INPUT_LIST } from "@app/wallets/constants";
+import { WALLET_ID_LIST } from "@app/wallets/constants";
+
+export enum BUTTON_VARIANT {
+  CONTAINED = "contained",
+  TEXT = "text",
+  OUTLINED = "outlined",
+}
 
 export const EXPENSES_BASIC_BUTTON = {
   addExpenses: {
     id: "expenses",
-    variant: "contained",
+    variant: BUTTON_VARIANT.CONTAINED,
     className: "expenses__contained",
     content: "Add expenses",
   },
   addReceipts: {
     id: "receipts",
-    variant: "text",
+    variant: BUTTON_VARIANT.TEXT,
     className: "expenses__text",
     content: "Cash receipts entry",
   },
@@ -27,51 +33,40 @@ export enum EXPENSES_TYPE {
 
 export const EXPENSES_TYPE_LIST = Object.values(EXPENSES_TYPE);
 
-const EXPENSES_SELECT = {
-  [EXPENSES_TYPE.GROCERY]: {
-    value: EXPENSES_TYPE.GROCERY,
-    id: EXPENSES_TYPE.GROCERY,
-  },
-  [EXPENSES_TYPE.TRANSPORTATION]: {
-    value: EXPENSES_TYPE.TRANSPORTATION,
-    id: EXPENSES_TYPE.TRANSPORTATION,
-  },
-  [EXPENSES_TYPE.HOUSING]: {
-    value: EXPENSES_TYPE.HOUSING,
-    id: EXPENSES_TYPE.HOUSING,
-  },
-  [EXPENSES_TYPE.NUTRITION]: {
-    value: EXPENSES_TYPE.NUTRITION,
-    id: EXPENSES_TYPE.NUTRITION,
-  },
-  [EXPENSES_TYPE.ENTERTEIMENT]: {
-    value: EXPENSES_TYPE.ENTERTEIMENT,
-    id: EXPENSES_TYPE.ENTERTEIMENT,
-  },
-};
-
-export const EXPPENSES_SELECT_LIST = Object.values(EXPENSES_SELECT);
+enum SELECT_ID {
+  EXPENSES = "expenses",
+  WALLETS = "wallets",
+}
 
 const ALL_SELECT = {
   expenses: {
     placeholder: "Select an expense type",
-    data: EXPPENSES_SELECT_LIST,
+    data: EXPENSES_TYPE_LIST,
+    id: SELECT_ID.EXPENSES,
   },
   wallets: {
     placeholder: "Select a wallet type",
-    data: WALLET_INPUT_LIST,
+    data: WALLET_ID_LIST,
+    id: SELECT_ID.WALLETS,
   },
 };
 
-export const EXPENSES_SELECT_LIST = Object.values(ALL_SELECT);
+export const ALL_SELECT_LIST = Object.values(ALL_SELECT);
+
+enum INPUT_ID {
+  SUM = "sum",
+  DESCRIPTION = "description",
+}
 
 const EXPENSES_INPUT = {
   sum: {
     type: "number",
+    id: INPUT_ID.SUM,
     placeholder: "Add an amount",
   },
   description: {
     type: "text",
+    id: INPUT_ID.DESCRIPTION,
     placeholder: "Add description",
   },
 };

@@ -1,40 +1,30 @@
-import { TExpensesInput } from "@app/expenses/type";
-import { TWalletsInput } from "@app/wallets/type";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import "./BasicSelect.scss";
 
-
-// interface ISelectProps<T, U> {
-//   className: string;
-//   placeholder: string;
-//   options: T | U;
-// }
-
-// type TSelectProps=ISelectProps<TExpensesInput[] , TWalletsInput[]>
-export type TOptions={value:string, id:string}
-
-type TSelectProps<T>= {
+type TSelectProps = {
   className: string;
   placeholder: string;
-  options: T[];
-}
+  value: string;
+  options: string[];
+  onChange: (newValue: string) => void;
+};
 
-
-export const BasicSelect = <T extends TOptions>({
+export const BasicSelect = ({
   className,
   placeholder,
+  value,
   options,
-}: TSelectProps<T>) => (
+  onChange,
+}: TSelectProps) => (
   <FormControl fullWidth>
     <InputLabel id="demo-simple-select-label">{placeholder}</InputLabel>
     <Select
-      labelId="demo-simple-select-label"
       className={className}
       label={placeholder}
-      //   onChange={handleChange}
+      value={value}
+      onChange={(event) => onChange(event.target.value as string)}
     >
-      {options.map(({ value, id }) => (
-        <MenuItem value={value} key={id} id={id}>
+      {options.map((value) => (
+        <MenuItem value={value} key={value} id={value}>
           {value}
         </MenuItem>
       ))}

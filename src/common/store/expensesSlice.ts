@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { WALLET_ID } from "@app/wallets/constants";
 import { IWallets } from "@app/wallets/type";
-import { IUserExpense } from "@common/types/types";
+import { IUserExpenses } from "@app/expenses/type";
 
 const INITIAL_STATE: {
   wallets: IWallets;
-  userExpenses: IUserExpense[];
+  userExpenses: IUserExpenses[];
 } = {
   wallets: {
     [WALLET_ID.SAVINGS]: {
@@ -38,9 +38,12 @@ const expensesSlice = createSlice({
         },
       };
     },
+    addExpenses(state, action) {
+      state.userExpenses.push(action.payload);
+    },
   },
 });
 
-export const { addWallets } = expensesSlice.actions;
+export const { addWallets, addExpenses } = expensesSlice.actions;
 
 export default expensesSlice.reducer;

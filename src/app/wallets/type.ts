@@ -1,4 +1,4 @@
-import { WALLET_ID, WALLET_TYPE } from "./constants";
+import { WALLET_ID } from "./constants";
 
 export interface IWallet {
   id: WALLET_ID;
@@ -6,5 +6,3 @@ export interface IWallet {
 }
 
 export type IWallets = Record<WALLET_ID, IWallet>;
-
-export type TWalletsInput ={ type: WALLET_TYPE, id:WALLET_ID};

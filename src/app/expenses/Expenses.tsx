@@ -1,20 +1,44 @@
-import { BasicButton, BasicModal } from "@common/components";
-import { EXPENSES_BASIC_BUTTON, EXPENSES_BASIC_BUTTON_LIST } from "./constants";
-import { TButtonVariant } from "@common/components/basicButton/BasicButton";
-import { useNavigate } from "react-router-dom";
-import { NAVIGATION } from "@common/constants/constants";
 import { useState } from "react";
-import { ModalBody } from "./components/modalBody/ModalBody";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  BUTTON_VARIANT,
+  EXPENSES_BASIC_BUTTON,
+  EXPENSES_BASIC_BUTTON_LIST,
+} from "./constants";
+import { NAVIGATION } from "@common/constants/constants";
+import { BasicButton, BasicModal } from "@common/components";
+import { addExpenses } from "@common/store/expensesSlice";
+import { selectExpenses } from "@common/store/selectors";
+import { ModalBody } from "./components/modalBody/ExpensesModalBody";
+import { IUserExpenses } from "./type";
 import "./Expenses.scss";
 
+const INITIAL_STATE = {
+  openModal: false,
+  userExpenses: null,
+};
+
 export const Expenses = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(INITIAL_STATE.openModal);
+  const [userExpenses, setUserExpenses] = useState<IUserExpenses | null>(
+    INITIAL_STATE.userExpenses
+  );
+
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleButtonClick = (id: string) =>
     EXPENSES_BASIC_BUTTON.addReceipts.id === id
       ? navigate(`/${NAVIGATION.WALLETS}`)
       : setOpenModal(true);
+
+  const handleModalButtonClick = () => {
+    if (userExpenses) dispatch(addExpenses(userExpenses));
+    setOpenModal(false);
+  };
+
   return (
     <div className="expenses">
       <p className="expenses__text">
@@ -25,10 +49,11 @@ export const Expenses = () => {
         {EXPENSES_BASIC_BUTTON_LIST.map(
           ({ id, variant, className, content }) => (
             <BasicButton
-              variant={variant as TButtonVariant}
+              key={id}
+              variant={variant}
               className={className}
               onClick={() => handleButtonClick(id)}
-              children={<span className="expenses__btn-text">{content}</span>}
+              children={content}
             />
           )
         )}
@@ -40,12 +65,15 @@ export const Expenses = () => {
           <>
             <h2 className="basic-modal__title">Enter data</h2>
             <div className="">
-              <ModalBody />
+              <ModalBody
+                setUserExpenses={setUserExpenses}
+                userExpenses={userExpenses as IUserExpenses}
+              />
             </div>
             <BasicButton
-              variant={"outlined"}
+              variant={BUTTON_VARIANT.OUTLINED}
               className={"basic-modal__btn"}
-              onClick={() => setOpenModal(false)}
+              onClick={handleModalButtonClick}
               children={<span className="wallets__btn-text">Add</span>}
             />
           </>

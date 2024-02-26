@@ -1,7 +1,7 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { IWallets } from "@app/wallets/type";
 import { NAVIGATION } from "@common/constants/constants";
-import { IUserExpense } from "@app/expenses/type";
+import { IUserExpenses } from "@app/expenses/type";
 
 export type TDispatch = ThunkDispatch<any, any, any>;
 
@@ -23,6 +23,6 @@ export interface ICurrancy {
 export interface IExpenses {
   [NAVIGATION.EXPENSES]: {
     wallets: IWallets;
-    userExpenses: IUserExpense[];
+    userExpenses: IUserExpenses[];
   };
 }
