@@ -35,17 +35,17 @@ export const ModalBody = ({
         onChange={(newValue) => updateUserValue(newValue, "creationDate")}
       />
       {EXPENSES_INPUT_LIST.map(({ type, placeholder, id }) => (
-        <TextField
-          key={id}
-          className="modal-body__input"
-          type={type}
-          label={placeholder}
-          variant="outlined"
-          value={userExpenses?.[id] || ""}
-          onChange={(event, key = id) =>
-            updateUserValue(event.target.value, key)
-          }
-        />
+          <TextField
+            key={id}
+            className="modal-body__input"
+            type={type}
+            label={placeholder}
+            variant="outlined"
+            value={userExpenses?.[id] || ""}
+            onChange={(event, key = id) =>
+              updateUserValue(event.target.value, key)
+            }
+          />
       ))}
     </div>
   );

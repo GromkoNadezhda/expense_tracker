@@ -16,7 +16,7 @@ export const EXPENSES_BASIC_BUTTON = {
   addReceipts: {
     id: "receipts",
     variant: BUTTON_VARIANT.TEXT,
-    className: "expenses__text",
+    className: "expenses__text-btn",
     content: "Cash receipts entry",
   },
 };
@@ -40,12 +40,12 @@ enum SELECT_ID {
 
 const ALL_SELECT = {
   expenses: {
-    placeholder: "Select an expense type",
+    placeholder: "Select an expense type *",
     data: EXPENSES_TYPE_LIST,
     id: SELECT_ID.EXPENSES,
   },
   wallets: {
-    placeholder: "Select a wallet type",
+    placeholder: "Select a wallet type *",
     data: WALLET_ID_LIST,
     id: SELECT_ID.WALLETS,
   },
@@ -53,7 +53,7 @@ const ALL_SELECT = {
 
 export const ALL_SELECT_LIST = Object.values(ALL_SELECT);
 
-enum INPUT_ID {
+export enum INPUT_ID {
   SUM = "sum",
   DESCRIPTION = "description",
 }
@@ -62,7 +62,7 @@ const EXPENSES_INPUT = {
   sum: {
     type: "number",
     id: INPUT_ID.SUM,
-    placeholder: "Add an amount",
+    placeholder: "Add an amount *",
   },
   description: {
     type: "text",
@@ -72,3 +72,22 @@ const EXPENSES_INPUT = {
 };
 
 export const EXPENSES_INPUT_LIST = Object.values(EXPENSES_INPUT);
+
+enum EXPENSES_TABLE_HEADER {
+  EXPENSES_TYPE = "Type of expenses",
+  CREATION_DATE = "Creation date",
+  EDETION_DATE = "Editing date",
+  SUM = "Sum",
+  WALLET_TYPE = "Wallet",
+  DESCRIPTION = "Description",
+  ACTIONS = "Actions",
+}
+
+export const EXPENSES_TABLE_HEADER_LIST = Object.values(EXPENSES_TABLE_HEADER);
+
+export enum ACTIVE_MENU {
+  EDIT = "Edit",
+  REMOVE = "Remove",
+}
+
+export const ACTIVE_MENU_LIST = Object.values(ACTIVE_MENU);

@@ -11,9 +11,9 @@ export const BasicDatePicker = ({
     <Stack>
       <DatePicker
         className="date-picker"
-        label="Select a date"
+        label="Select a date *"
         onChange={(newValue: { $d: string } | null) => {
-          if (newValue) onChange(newValue.$d.toString());
+          if (newValue) onChange(newValue.$d.toString().slice(3, 15));
         }}
       />
     </Stack>

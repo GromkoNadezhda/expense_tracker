@@ -1,0 +1,32 @@
+@import "../../../../style/helpers/variables.scss";
+
+.expenses-table {
+  width: 80%;
+  background-color: $black;
+  margin: 0 auto;
+  border: 10px solid $black;
+  font-size: $content-size;
+  text-align: center;
+
+  &__header {
+    color: $primary;
+    font-size: $subtitle-size;
+  }
+
+  &__body {
+    color: $white;
+    font-size: $content-size;
+  }
+
+  &__item {
+    border-bottom: 1px solid $secondary;
+    height: 50px;
+    padding-left: $paddingSize * 4;
+    padding-right: $paddingSize * 4;
+    vertical-align: middle;
+  }
+
+  .expenses-table__icon {
+    color: $white;
+  }
+}

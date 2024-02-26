@@ -41,9 +41,16 @@ const expensesSlice = createSlice({
     addExpenses(state, action) {
       state.userExpenses.push(action.payload);
     },
+    updateWallets(
+      state,
+      action: { payload: { wallets: WALLET_ID; sum: number } }
+    ) {
+      state.wallets[action.payload.wallets].sum =
+        state.wallets[action.payload.wallets].sum - action.payload.sum;
+    },
   },
 });
 
-export const { addWallets, addExpenses } = expensesSlice.actions;
+export const { addWallets, addExpenses, updateWallets } = expensesSlice.actions;
 
 export default expensesSlice.reducer;

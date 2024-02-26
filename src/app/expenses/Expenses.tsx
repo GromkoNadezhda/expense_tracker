@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,11 +8,12 @@ import {
 } from "./constants";
 import { NAVIGATION } from "@common/constants/constants";
 import { BasicButton, BasicModal } from "@common/components";
-import { addExpenses } from "@common/store/expensesSlice";
-import { selectExpenses } from "@common/store/selectors";
+import { addExpenses, updateWallets } from "@common/store/expensesSlice";
 import { ModalBody } from "./components/modalBody/ExpensesModalBody";
 import { IUserExpenses } from "./type";
 import "./Expenses.scss";
+import { selectExpenses } from "@common/store/selectors";
+import { ExpensesTable } from "./components/expensesTable/ExpensesTable";
 
 const INITIAL_STATE = {
   openModal: false,
@@ -25,6 +26,8 @@ export const Expenses = () => {
     INITIAL_STATE.userExpenses
   );
 
+  const expenses = useSelector(selectExpenses);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -35,16 +38,44 @@ export const Expenses = () => {
       : setOpenModal(true);
 
   const handleModalButtonClick = () => {
-    if (userExpenses) dispatch(addExpenses(userExpenses));
+    if (userExpenses) {
+      dispatch(addExpenses(userExpenses));
+
+      dispatch(
+        updateWallets({
+          wallets: userExpenses?.wallets,
+          sum: userExpenses?.sum,
+        })
+      );
+
+      setUserExpenses(null)
+    }
+
     setOpenModal(false);
   };
 
+  const disabled = useMemo(() => {
+    if (userExpenses) {
+      const { expenses, wallets, creationDate, sum } = userExpenses;
+
+      return expenses && wallets && creationDate && sum ? false : true;
+    }
+
+    return true;
+  }, [userExpenses]);
+
   return (
     <div className="expenses">
-      <p className="expenses__text">
-        Have you deposited the cash receipts yet?
-      </p>
-      <h2 className="expenses__title">Enter your first expenses</h2>
+      {expenses.length ? (
+        <ExpensesTable />
+      ) : (
+        <>
+          <p className="expenses__text">
+            Have you deposited the cash receipts yet?
+          </p>
+          <h2 className="expenses__title">Enter your first expenses</h2>
+        </>
+      )}
       <div className="expenses__wrapper-btn">
         {EXPENSES_BASIC_BUTTON_LIST.map(
           ({ id, variant, className, content }) => (
@@ -74,7 +105,8 @@ export const Expenses = () => {
               variant={BUTTON_VARIANT.OUTLINED}
               className={"basic-modal__btn"}
               onClick={handleModalButtonClick}
-              children={<span className="wallets__btn-text">Add</span>}
+              children={"Add"}
+              disabled={disabled}
             />
           </>
         }
