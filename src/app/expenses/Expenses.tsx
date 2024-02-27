@@ -11,9 +11,9 @@ import { BasicButton, BasicModal } from "@common/components";
 import { addExpenses, updateWallets } from "@common/store/expensesSlice";
 import { ModalBody } from "./components/modalBody/ExpensesModalBody";
 import { IUserExpenses } from "./type";
-import "./Expenses.scss";
 import { selectExpenses } from "@common/store/selectors";
 import { ExpensesTable } from "./components/expensesTable/ExpensesTable";
+import "./Expenses.scss";
 
 const INITIAL_STATE = {
   openModal: false,
@@ -44,7 +44,7 @@ export const Expenses = () => {
       dispatch(
         updateWallets({
           wallets: userExpenses?.wallets,
-          sum: userExpenses?.sum,
+          sum: +userExpenses?.sum,
         })
       );
 

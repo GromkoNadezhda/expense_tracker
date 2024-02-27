@@ -26,7 +26,6 @@ export const Wallets = () => {
   }>(INITIAL_STATE.inputValue);
 
   const wallets = useSelector(selectWallets);
-console.log(wallets);
 
   const dispatch = useDispatch();
 

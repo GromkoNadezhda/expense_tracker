@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { WALLET_ID } from "@app/wallets/constants";
 import { IWallets } from "@app/wallets/type";
 import { IUserExpenses } from "@app/expenses/type";
+import { ACTIVE_MENU } from "@app/expenses/constants";
 
 const INITIAL_STATE: {
   wallets: IWallets;
@@ -48,9 +49,20 @@ const expensesSlice = createSlice({
       state.wallets[action.payload.wallets].sum =
         state.wallets[action.payload.wallets].sum - action.payload.sum;
     },
+    removeExpenses(state, action) {
+      if (action.payload.buttonId === ACTIVE_MENU.REMOVE) {
+        state.userExpenses = state.userExpenses.filter(
+          ({ id }) => id !== action.payload.expensesId
+        );
+        state.wallets[action.payload.walletId as WALLET_ID].sum =
+          state.wallets[action.payload.walletId as WALLET_ID].sum +
+          action.payload.expensesSum;
+      }
+    },
   },
 });
 
-export const { addWallets, addExpenses, updateWallets } = expensesSlice.actions;
+export const { addWallets, addExpenses, updateWallets, removeExpenses } =
+  expensesSlice.actions;
 
 export default expensesSlice.reducer;

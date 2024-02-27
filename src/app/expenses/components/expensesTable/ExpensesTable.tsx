@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { MenuItem } from "@mui/material";
 import { selectExpenses } from "@common/store/selectors";
+import { removeExpenses } from "@common/store/expensesSlice";
 import {
-  ACTIVE_MENU,
   ACTIVE_MENU_LIST,
   EXPENSES_TABLE_HEADER_LIST,
 } from "@app/expenses/constants";
@@ -12,12 +12,7 @@ import "./ExpensesTable.scss";
 export const ExpensesTable = () => {
   const userExpenses = useSelector(selectExpenses);
 
-  const [updatedExpenses, setUpdatedExpenses]=useState(userExpenses)
-
-  const updateExpenses = (buttonId: string, expensesId: string) => {
-    buttonId === ACTIVE_MENU.REMOVE?
-    setUpdatedExpenses(userExpenses.filter(({ id }) => id !== expensesId)):setUpdatedExpenses(userExpenses)
-  };
+  const dispatch = useDispatch();
 
   return (
     <table className="expenses-table">
@@ -31,7 +26,7 @@ export const ExpensesTable = () => {
         </tr>
       </thead>
       {!!userExpenses.length &&
-        updatedExpenses.map(
+        userExpenses.map(
           ({
             expenses,
             creationDate,
@@ -53,8 +48,24 @@ export const ExpensesTable = () => {
                   {
                     <ActiveMenu
                       className="expenses-table__icon"
-                      menuItems={ACTIVE_MENU_LIST as []}
-                      onClick={()=>updateExpenses(ACTIVE_MENU.REMOVE, id)}
+                      children={ACTIVE_MENU_LIST.map((active_menu) => (
+                        <MenuItem
+                          className="active-menu__item"
+                          key={active_menu}
+                          onClick={() =>
+                            dispatch(
+                              removeExpenses({
+                                buttonId: active_menu,
+                                expensesId: id,
+                                walletId: wallets,
+                                expensesSum: +sum,
+                              })
+                            )
+                          }
+                        >
+                          {active_menu}
+                        </MenuItem>
+                      ))}
                     />
                   }
                 </td>
