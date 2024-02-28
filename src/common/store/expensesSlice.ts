@@ -40,29 +40,46 @@ const expensesSlice = createSlice({
       };
     },
     addExpenses(state, action) {
-      state.userExpenses.push(action.payload);
+      if (!state.userExpenses.length) state.userExpenses.push(action.payload);
+
+      state.userExpenses = [
+        ...state.userExpenses.filter(({ id }) => id !== action.payload.id),
+        action.payload,
+      ];
     },
-    updateWallets(
+
+    updateWallet(
       state,
-      action: { payload: { wallets: WALLET_ID; sum: number } }
+      action: {
+        payload: { wallets: WALLET_ID; sum: number };
+      }
     ) {
       state.wallets[action.payload.wallets].sum =
         state.wallets[action.payload.wallets].sum - action.payload.sum;
     },
+
+    removeWallet(state, action) {
+      state.wallets[action.payload.wallets as WALLET_ID].sum =
+        +state.wallets[action.payload.wallets as WALLET_ID].sum +
+        +action.payload.sum;
+    },
+    
     removeExpenses(state, action) {
       if (action.payload.buttonId === ACTIVE_MENU.REMOVE) {
         state.userExpenses = state.userExpenses.filter(
           ({ id }) => id !== action.payload.expensesId
         );
-        state.wallets[action.payload.walletId as WALLET_ID].sum =
-          state.wallets[action.payload.walletId as WALLET_ID].sum +
-          action.payload.expensesSum;
       }
     },
   },
 });
 
-export const { addWallets, addExpenses, updateWallets, removeExpenses } =
-  expensesSlice.actions;
+export const {
+  addWallets,
+  addExpenses,
+  updateWallet,
+  removeWallet,
+  removeExpenses,
+} = expensesSlice.actions;
 
 export default expensesSlice.reducer;

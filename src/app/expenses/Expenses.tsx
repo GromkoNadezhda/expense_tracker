@@ -2,16 +2,17 @@ import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  ACTIVE_MENU,
   BUTTON_VARIANT,
   EXPENSES_BASIC_BUTTON,
   EXPENSES_BASIC_BUTTON_LIST,
 } from "./constants";
 import { NAVIGATION } from "@common/constants/constants";
 import { BasicButton, BasicModal } from "@common/components";
-import { addExpenses, updateWallets } from "@common/store/expensesSlice";
+import { addExpenses, updateWallet } from "@common/store/expensesSlice";
 import { ModalBody } from "./components/modalBody/ExpensesModalBody";
 import { IUserExpenses } from "./type";
-import { selectExpenses } from "@common/store/selectors";
+import { selectExpenses, selectWallets } from "@common/store/selectors";
 import { ExpensesTable } from "./components/expensesTable/ExpensesTable";
 import "./Expenses.scss";
 
@@ -37,18 +38,27 @@ export const Expenses = () => {
       ? navigate(`/${NAVIGATION.WALLETS}`)
       : setOpenModal(true);
 
+  const editUserExpenses = (buttonId: string, expensesId: string) => {
+    if (buttonId === ACTIVE_MENU.EDIT) {
+      setOpenModal(true);
+      const updatedExpenses = expenses.find(({ id }) => id === expensesId);
+
+      if (updatedExpenses) setUserExpenses(updatedExpenses);
+    }
+  };
+
   const handleModalButtonClick = () => {
     if (userExpenses) {
       dispatch(addExpenses(userExpenses));
 
       dispatch(
-        updateWallets({
-          wallets: userExpenses?.wallets,
-          sum: +userExpenses?.sum,
+        updateWallet({
+          wallets: userExpenses.wallets,
+          sum: userExpenses.sum,
         })
       );
 
-      setUserExpenses(null)
+      setUserExpenses(null);
     }
 
     setOpenModal(false);
@@ -67,7 +77,7 @@ export const Expenses = () => {
   return (
     <div className="expenses">
       {expenses.length ? (
-        <ExpensesTable />
+        <ExpensesTable editUserExpenses={editUserExpenses} />
       ) : (
         <>
           <p className="expenses__text">

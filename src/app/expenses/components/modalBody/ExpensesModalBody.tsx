@@ -3,6 +3,8 @@ import { TextField } from "@mui/material";
 import { EXPENSES_INPUT_LIST, ALL_SELECT_LIST } from "@app/expenses/constants";
 import { IUserExpenses } from "@app/expenses/type";
 import { BasicDatePicker, BasicSelect } from "@common/components";
+import { useSelector } from "react-redux";
+import { selectExpenses } from "@common/store/selectors";
 import "./ExpensesModalBody.scss";
 
 export const ModalBody = ({
@@ -12,12 +14,19 @@ export const ModalBody = ({
   setUserExpenses: React.Dispatch<React.SetStateAction<IUserExpenses | null>>;
   userExpenses: IUserExpenses;
 }) => {
-  const updateUserValue = (newValue: string, key: string) =>
-    setUserExpenses({
-      ...(userExpenses as IUserExpenses),
-      [key]: newValue,
-      id: nanoid(),
-    });
+  const expenses = useSelector(selectExpenses);
+
+  const updateUserValue = (newValue: string, key: string) => {
+    const expensesWithID = expenses.some(({ id }) => id === userExpenses?.id);
+
+    expensesWithID
+      ? setUserExpenses({ ...userExpenses, [key]: newValue })
+      : setUserExpenses({
+          ...(userExpenses as IUserExpenses),
+          [key]: newValue,
+          id: nanoid(),
+        });
+  };
 
   return (
     <div className="modal-body">
@@ -35,17 +44,17 @@ export const ModalBody = ({
         onChange={(newValue) => updateUserValue(newValue, "creationDate")}
       />
       {EXPENSES_INPUT_LIST.map(({ type, placeholder, id }) => (
-          <TextField
-            key={id}
-            className="modal-body__input"
-            type={type}
-            label={placeholder}
-            variant="outlined"
-            value={userExpenses?.[id] || ""}
-            onChange={(event, key = id) =>
-              updateUserValue(event.target.value, key)
-            }
-          />
+        <TextField
+          key={id}
+          className="modal-body__input"
+          type={type}
+          label={placeholder}
+          variant="outlined"
+          value={userExpenses?.[id] || ""}
+          onChange={(event, key = id) =>
+            updateUserValue(event.target.value, key)
+          }
+        />
       ))}
     </div>
   );

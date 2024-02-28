@@ -1,18 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
 import { MenuItem } from "@mui/material";
 import { selectExpenses } from "@common/store/selectors";
-import { removeExpenses } from "@common/store/expensesSlice";
+import { removeExpenses, removeWallet } from "@common/store/expensesSlice";
 import {
   ACTIVE_MENU_LIST,
   EXPENSES_TABLE_HEADER_LIST,
 } from "@app/expenses/constants";
 import { ActiveMenu } from "@common/components/activeMenu/ActiveMenu";
+import { WALLET_ID } from "@app/wallets/constants";
 import "./ExpensesTable.scss";
 
-export const ExpensesTable = () => {
+export const ExpensesTable = ({
+  editUserExpenses,
+}: {
+  editUserExpenses: (buttonId: string, expensesId: string) => void;
+}) => {
   const userExpenses = useSelector(selectExpenses);
 
   const dispatch = useDispatch();
+
+  const handleActiveMenuClick = (
+    active_menu: string,
+    id: string,
+    wallets: WALLET_ID,
+    sum: number
+  ) => {
+    dispatch(
+      removeExpenses({
+        buttonId: active_menu,
+        expensesId: id,
+        walletId: wallets,
+        expensesSum: +sum,
+      })
+    );
+    dispatch(
+      removeWallet({
+        wallets: wallets,
+        sum: +sum,
+      })
+    );
+    editUserExpenses(active_menu, id);
+  };
 
   return (
     <table className="expenses-table">
@@ -36,7 +64,7 @@ export const ExpensesTable = () => {
             description,
             id,
           }) => (
-            <tbody key={expenses} className="expenses-table__wrapper">
+            <tbody key={id} className="expenses-table__wrapper">
               <tr className="expenses-table__body">
                 <td className="expenses-table__item">{expenses}</td>
                 <td className="expenses-table__item">{creationDate}</td>
@@ -52,16 +80,14 @@ export const ExpensesTable = () => {
                         <MenuItem
                           className="active-menu__item"
                           key={active_menu}
-                          onClick={() =>
-                            dispatch(
-                              removeExpenses({
-                                buttonId: active_menu,
-                                expensesId: id,
-                                walletId: wallets,
-                                expensesSum: +sum,
-                              })
-                            )
-                          }
+                          onClick={() => {
+                            handleActiveMenuClick(
+                              active_menu,
+                              id,
+                              wallets,
+                              sum
+                            );
+                          }}
                         >
                           {active_menu}
                         </MenuItem>
