@@ -10,7 +10,7 @@ export enum NAVIGATION {
 
 export const NAVIGATION_LIST = Object.values(NAVIGATION);
 
-const ROUTES = {
+export const ROUTES = {
   [NAVIGATION.WALLETS]: {
     path: NAVIGATION.WALLETS,
     Component: Wallets,
@@ -22,3 +22,10 @@ const ROUTES = {
 };
 
 export const ROUTES_LIST = Object.values(ROUTES);
+
+export enum ALERT_BUTTON {
+  CLOSE = "CLOSE",
+  OK = "OK",
+}
+
+export const ALERT_BUTTON_LIST = Object.values(ALERT_BUTTON);

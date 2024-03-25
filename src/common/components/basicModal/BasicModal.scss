@@ -2,7 +2,7 @@
 
 .basic-modal {
   &__wrapper {
-    max-width: 500px;
+    max-width: 300px;
     width: 100%;
     height: max-content;
     position: absolute;
@@ -18,16 +18,15 @@
     color: $black;
     transform: translate(-50%, -50%);
   }
-  
+
   .basic-modal__title {
-    margin-bottom: $paddingSize * 4;
+    margin-bottom: $paddingSize * 2;
     font-size: $subtitle-size;
     font-weight: $bold;
   }
 
   .basic-modal__input {
-    @extend %input;
-    margin-bottom: $paddingSize * 4;
+    width: 260px;
   }
 
   .basic-modal__btn {

@@ -10,3 +10,13 @@ export interface IUserExpenses {
   sum: number;
   description?: string;
 }
+
+export type IFilteringValues = Pick<
+  IUserExpenses,
+  | "expenses"
+  | "wallets"
+  | "creationDate"
+  | "editingDate"
+  | "sum"
+  | "description"
+>;

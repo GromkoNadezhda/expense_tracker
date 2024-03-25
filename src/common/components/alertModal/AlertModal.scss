@@ -1,0 +1,31 @@
+@import "../../../style/helpers/variables.scss";
+
+.alert-modal {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+
+  &__title {
+    font-size: $subtitle-size;
+    color: $black;
+  }
+
+  &__wrapper-btn {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .alert-modal__btn {
+    @extend %buttonContained;
+    max-width: 100px;
+    width: 100%;
+
+    &:hover {
+      @extend %hoverContained;
+    }
+  }
+}

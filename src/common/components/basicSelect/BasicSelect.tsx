@@ -18,6 +18,7 @@ export const BasicSelect = ({
   <FormControl fullWidth>
     <InputLabel id="demo-simple-select-label">{placeholder}</InputLabel>
     <Select
+      MenuProps={{ className }}
       className={className}
       label={placeholder}
       value={value}

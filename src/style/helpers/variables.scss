@@ -15,12 +15,11 @@ $background: #65ccb7;
 $title-size: 2rem;
 $subtitle-size: 1.3rem;
 $content-size: 1rem;
+$small-content-size: 0.8rem;
 $normal: 400;
 $bold: 600;
 $semi-bold: 500;
-// $radius:20px;
 $paddingSize: 0.25em;
-// $marginSize: 8px;
 
 //templates
 %mainBlock-size {
@@ -62,19 +61,6 @@ $paddingSize: 0.25em;
   color: $primary;
   font-size: $content-size;
 }
-
-// @mixin contentBlocks{
-// max-width: 1100px;
-// width: 100%;
-// margin: 0 auto;
-// }
-
-// @mixin borderShadow {
-//     border-radius: $radius;
-//     box-shadow: 5px 5px 10px 1px $secondary;
-// }
-
-//mixin
 
 @mixin buttonText($color, $fontSize) {
   background-color: inherit;

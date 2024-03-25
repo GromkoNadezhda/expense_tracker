@@ -11,3 +11,10 @@ export enum WALLET_TYPE {
 }
 
 export const WALLET_TYPE_LIST = Object.values(WALLET_TYPE);
+
+enum BUTTON_CONTENT{
+  DETAILS='Details',
+  CLEAR='Сlear'
+}
+
+export const BUTTON_CONTENT_LIST=Object.values(BUTTON_CONTENT)

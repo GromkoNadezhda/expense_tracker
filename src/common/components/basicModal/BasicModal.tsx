@@ -1,10 +1,10 @@
-import Modal from "@mui/material/Modal";
 import { ReactNode } from "react";
+import Modal from "@mui/material/Modal";
 import "./BasicModal.scss";
 
 interface IModalProps {
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   children?: ReactNode;
 }
 
