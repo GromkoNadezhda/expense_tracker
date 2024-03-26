@@ -6,22 +6,22 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
   selectAllExpenses,
   selectSortedUserExpenses,
-  selectSortingType,
 } from "@common/store/selectors";
 import {
   removeExpenses,
-  removeWallet,
+  // removeWallet,
   updateSortingOptions,
+  updateWallet,
 } from "@common/store/expensesSlice";
 import {
-  ACTIVE_MENU_LIST,
   EXPENSES_FILTERING_TITLE,
   EXPENSES_TABLE_HEADER_LIST,
   USER_EXPENSES_ID,
 } from "@app/expenses/constants";
 import { IFilteringValues } from "@app/expenses/type";
 import { ActiveMenu } from "@common/components/activeMenu/ActiveMenu";
-import { BasicButton } from "@common/components";
+import { BasicButton, BasicTable } from "@common/components";
+import { ACTIVE_MENU_LIST } from "@common/constants/constants";
 import { WALLET_ID } from "@app/wallets/constants";
 import { ExpenseTableFiltering } from "../ExpenseTableFiltering/ExpenseTableFiltering";
 import "./ExpensesTable.scss";
@@ -64,9 +64,9 @@ export const ExpensesTable = ({
     );
 
     dispatch(
-      removeWallet({
-        wallets: wallets,
-        sum: +sum,
+      updateWallet({
+        id: wallets,
+        sum: -sum,
       })
     );
 
@@ -86,8 +86,8 @@ export const ExpensesTable = ({
   };
 
   return (
-    <table className="expenses-table">
-      <thead className="expenses-table__wrapper">
+    <BasicTable
+      childrenHeader={
         <tr className="expenses-table__icon" onClick={updateFilteringTitle}>
           <th>
             <FilterAltIcon />
@@ -98,33 +98,32 @@ export const ExpensesTable = ({
             </span>
           </th>
         </tr>
-        <tr className="expenses-table__header">
-          {EXPENSES_TABLE_HEADER_LIST.map(({ title, id }) => (
-            <th key={title} className="expenses-table__item">
-              <div className="expenses-table__wrapper-item">
-                {title}
-                <BasicButton
-                  variant="text"
-                  className="expenses-table__sorting"
-                  onClick={() => updateSortingSettings(id)}
-                >
-                  {<SwapVertIcon />}
-                </BasicButton>
-              </div>
-              {open && (
-                <ExpenseTableFiltering
-                  table_header={title}
-                  id={id as USER_EXPENSES_ID}
-                  userFilteringValues={userFilteringValues as IFilteringValues}
-                  setUserFilteringValues={setUserFilteringValues}
-                  open={open}
-                />
-              )}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      {!!selectedUserExpenses.length &&
+      }
+      childrenHeaderContent={EXPENSES_TABLE_HEADER_LIST.map(({ title, id }) => (
+        <th key={title} className="expenses-table__item">
+          <div className="expenses-table__wrapper-item">
+            {title}
+            <BasicButton
+              variant="text"
+              className="expenses-table__sorting"
+              onClick={() => updateSortingSettings(id)}
+            >
+              {<SwapVertIcon />}
+            </BasicButton>
+          </div>
+          {open && (
+            <ExpenseTableFiltering
+              table_header={title}
+              id={id as USER_EXPENSES_ID}
+              userFilteringValues={userFilteringValues as IFilteringValues}
+              setUserFilteringValues={setUserFilteringValues}
+              open={open}
+            />
+          )}
+        </th>
+      ))}
+      childrenBody={
+        !!selectedUserExpenses.length &&
         selectedUserExpenses.map(
           ({
             expenses,
@@ -135,41 +134,120 @@ export const ExpensesTable = ({
             description,
             id,
           }) => (
-            <tbody key={id} className="expenses-table__wrapper">
-              <tr className="expenses-table__body">
-                <td className="expenses-table__item">{expenses}</td>
-                <td className="expenses-table__item">{creationDate}</td>
-                <td className="expenses-table__item">{editingDate}</td>
-                <td className="expenses-table__item">{sum}</td>
-                <td className="expenses-table__item">{wallets}</td>
-                <td className="expenses-table__item">{description}</td>
-                <td className="expenses-table__item">
-                  {
-                    <ActiveMenu
-                      className="expenses-table__icon"
-                      children={ACTIVE_MENU_LIST.map((active_menu) => (
-                        <MenuItem
-                          className="active-menu__item"
-                          key={active_menu}
-                          onClick={() => {
-                            handleActiveMenuClick(
-                              active_menu,
-                              id,
-                              wallets,
-                              sum
-                            );
-                          }}
-                        >
-                          {active_menu}
-                        </MenuItem>
-                      ))}
-                    />
-                  }
-                </td>
-              </tr>
-            </tbody>
+            <tr className="expenses-table__body" key={id}>
+              <td className="expenses-table__item">{expenses}</td>
+              <td className="expenses-table__item">{creationDate}</td>
+              <td className="expenses-table__item">{editingDate}</td>
+              <td className="expenses-table__item">{sum}</td>
+              <td className="expenses-table__item">{wallets}</td>
+              <td className="expenses-table__item">{description}</td>
+              <td className="expenses-table__item">
+                {
+                  <ActiveMenu
+                    className="expenses-table__icon"
+                    children={ACTIVE_MENU_LIST.map((active_menu) => (
+                      <MenuItem
+                        className="active-menu__item"
+                        key={active_menu}
+                        onClick={() => {
+                          handleActiveMenuClick(active_menu, id, wallets, sum);
+                        }}
+                      >
+                        {active_menu}
+                      </MenuItem>
+                    ))}
+                  />
+                }
+              </td>
+            </tr>
           )
-        )}
-    </table>
+        )
+      }
+    />
+    // <table className="expenses-table">
+    //   <thead className="expenses-table__wrapper">
+    //     <tr className="expenses-table__icon" onClick={updateFilteringTitle}>
+    //       <th>
+    //         <FilterAltIcon />
+    //         <span>{filteringTitle}</span>
+    //         <span>
+    //           - showing {selectedUserExpenses.length} of
+    //           {allUserExpenses.length}
+    //         </span>
+    //       </th>
+    //     </tr>
+    //     <tr className="expenses-table__header">
+    //       {EXPENSES_TABLE_HEADER_LIST.map(({ title, id }) => (
+    //         <th key={title} className="expenses-table__item">
+    //           <div className="expenses-table__wrapper-item">
+    //             {title}
+    //             <BasicButton
+    //               variant="text"
+    //               className="expenses-table__sorting"
+    //               onClick={() => updateSortingSettings(id)}
+    //             >
+    //               {<SwapVertIcon />}
+    //             </BasicButton>
+    //           </div>
+    //           {open && (
+    //             <ExpenseTableFiltering
+    //               table_header={title}
+    //               id={id as USER_EXPENSES_ID}
+    //               userFilteringValues={userFilteringValues as IFilteringValues}
+    //               setUserFilteringValues={setUserFilteringValues}
+    //               open={open}
+    //             />
+    //           )}
+    //         </th>
+    //       ))}
+    //     </tr>
+    //   </thead>
+    //   {!!selectedUserExpenses.length &&
+    //     selectedUserExpenses.map(
+    //       ({
+    //         expenses,
+    //         creationDate,
+    //         editingDate,
+    //         sum,
+    //         wallets,
+    //         description,
+    //         id,
+    //       }) => (
+    //         <tbody key={id} className="expenses-table__wrapper">
+    //           <tr className="expenses-table__body">
+    //             <td className="expenses-table__item">{expenses}</td>
+    //             <td className="expenses-table__item">{creationDate}</td>
+    //             <td className="expenses-table__item">{editingDate}</td>
+    //             <td className="expenses-table__item">{sum}</td>
+    //             <td className="expenses-table__item">{wallets}</td>
+    //             <td className="expenses-table__item">{description}</td>
+    //             <td className="expenses-table__item">
+    //               {
+    //                 <ActiveMenu
+    //                   className="expenses-table__icon"
+    //                   children={ACTIVE_MENU_LIST.map((active_menu) => (
+    //                     <MenuItem
+    //                       className="active-menu__item"
+    //                       key={active_menu}
+    //                       onClick={() => {
+    //                         handleActiveMenuClick(
+    //                           active_menu,
+    //                           id,
+    //                           wallets,
+    //                           sum
+    //                         );
+    //                       }}
+    //                     >
+    //                       {active_menu}
+    //                     </MenuItem>
+    //                   ))}
+    //                 />
+    //               }
+    //             </td>
+    //           </tr>
+    //         </tbody>
+    //       )
+    //     )}
+    // </table>
   );
 };

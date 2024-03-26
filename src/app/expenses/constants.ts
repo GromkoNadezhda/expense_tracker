@@ -91,7 +91,6 @@ export const EXPENSES_TABLE_HEADER = {
     title: "Description",
     id: USER_EXPENSES_ID.DESCRIPTION,
   },
-  actions: { title: "", id: "actions" },
 };
 
 export const EXPENSES_TABLE_HEADER_LIST = Object.values(EXPENSES_TABLE_HEADER);
@@ -100,9 +99,3 @@ export enum EXPENSES_FILTERING_TITLE {
   ACTIVE = "Filtering is active",
   INACTIVE = "Filtering is inactive",
 }
-export enum ACTIVE_MENU {
-  EDIT = "Edit",
-  REMOVE = "Remove",
-}
-
-export const ACTIVE_MENU_LIST = Object.values(ACTIVE_MENU);

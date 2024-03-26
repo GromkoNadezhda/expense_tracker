@@ -12,9 +12,16 @@ export enum WALLET_TYPE {
 
 export const WALLET_TYPE_LIST = Object.values(WALLET_TYPE);
 
-enum BUTTON_CONTENT{
-  DETAILS='Details',
-  CLEAR='Сlear'
+enum BUTTON_CONTENT {
+  DETAILS = "Details",
+  CLEAR = "Сlear",
 }
 
-export const BUTTON_CONTENT_LIST=Object.values(BUTTON_CONTENT)
+export const BUTTON_CONTENT_LIST = Object.values(BUTTON_CONTENT);
+
+export enum WALLET_HISTORY_KEY {
+  DATE = "Date",
+  SUM = "Sum",
+}
+
+export const WALLET_HISTORY_KEY_LIST = Object.values(WALLET_HISTORY_KEY);

@@ -1,8 +1,9 @@
 @import "../../../style/helpers/variables.scss";
 
-.active-menu__wrapper {
-  
-  .active-menu__item {
+.active-menu {
+  width: 10px;
+
+  &__item {
     font-family: $font;
     font-size: $content-size;
     color: $black;

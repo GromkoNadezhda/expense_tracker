@@ -1,58 +1,58 @@
-@import "../../../../style/helpers/variables.scss";
+// @import "../../../../style/helpers/variables.scss";
 
-.expenses-table {
- max-width: 1000px;
- width: 100%;
-  background-color: $black;
-  border: 10px solid $black;
-  font-size: $content-size;
-  text-align: left;
+// .expenses-table {
+//  max-width: 1000px;
+//  width: 100%;
+//   background-color: $black;
+//   border: 10px solid $black;
+//   font-size: $content-size;
+//   text-align: left;
 
-  &__icon {
-    color: $white;
-  }
+//   &__icon {
+//     color: $white;
+//   }
 
-  &__header {
-    color: $primary;
-  }
+//   &__header {
+//     color: $primary;
+//   }
 
-  &__body {
-    color: $white;
-    font-size: $small-content-size;
-  }
+//   // &__body {
+//   //   color: $white;
+//   //   font-size: $small-content-size;
+//   // }
 
-  &__item {
-    border-bottom: 2px solid $secondary;
-    height: 70px;
-    padding-left: $paddingSize * 4;
-    vertical-align: middle;
-  }
+//   &__item {
+//     border-bottom: 2px solid $secondary;
+//     height: 70px;
+//     padding-left: $paddingSize * 4;
+//     vertical-align: middle;
+//   }
 
-  &__wrapper-item{
-    display: flex;
-    align-items: center;
-  }
+//   &__wrapper-item{
+//     display: flex;
+//     align-items: center;
+//   }
 
-  &__search {
-    border: 1px solid $black;
-    border-bottom: 1px solid $secondary;
-    padding: $paddingSize;
-    margin-top: $paddingSize * 2;
-    background-color: inherit;
-    color: $primary;
-    outline: none;
-    &:focus {
-      border: 1px solid $secondary;
-    }
-  }
+//   &__search {
+//     border: 1px solid $black;
+//     border-bottom: 1px solid $secondary;
+//     padding: $paddingSize;
+//     margin-top: $paddingSize * 2;
+//     background-color: inherit;
+//     color: $primary;
+//     outline: none;
+//     &:focus {
+//       border: 1px solid $secondary;
+//     }
+//   }
 
-  .expenses-table__icon {
-    color: $white;
-  }
+//   .expenses-table__icon {
+//     color: $white;
+//   }
 
-  .expenses-table__sorting {
-    color: $secondary;
-    min-width: 24px;
-    padding: 0px;
-  }
-}
+//   .expenses-table__sorting {
+//     color: $secondary;
+//     min-width: 24px;
+//     padding: 0px;
+//   }
+// }

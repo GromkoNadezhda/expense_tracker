@@ -1,10 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { selectWallets } from "@store/selectors";
+import { nanoid } from "nanoid";
+import { TextField } from "@mui/material";
+import { selectIncomeHistory, selectWallets } from "@store/selectors";
 import {
   addIncomeHistory,
   addWallets,
+  removeIncomeHistory,
+  sendExpensesSumToWallet,
   updateWallet,
 } from "@store/expensesSlice";
 import {
@@ -14,12 +18,11 @@ import {
   BasicModal,
   MenuListComposition,
 } from "@common/components";
+import { BasicSnackbar } from "@common/components/basicSnackbar/BasicSnackbar";
 import { ALERT_BUTTON } from "@common/constants/constants";
-import { IWallet } from "./type";
+import { ITotalWalletData, IWallet } from "./type";
 import { BUTTON_CONTENT_LIST, WALLET_ID, WALLET_TYPE } from "./constants";
 import "./Wallets.scss";
-import { BasicSnackbar } from "@common/components/basicSnackbar/BasicSnackbar";
-import { TextField } from "@mui/material";
 
 const INITIAL_STATE = {
   openModal: false,
@@ -41,12 +44,13 @@ export const Wallets = () => {
   );
 
   const wallets = useSelector(selectWallets);
+  const incomeHistory = useSelector(selectIncomeHistory);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const walletList: Omit<IWallet, "date">[] = Object.values(wallets);
+  const walletList: ITotalWalletData[] = Object.values(wallets);
 
   const updateInputValue = (event: React.FocusEvent<HTMLInputElement>) =>
     setInputValue({
@@ -58,10 +62,10 @@ export const Wallets = () => {
   const onClickModalButton = () => {
     setOpenBasicModal(!openBasicModal);
 
-    dispatch(addWallets(inputValue));
-    dispatch(addIncomeHistory(inputValue));
+    dispatch(addWallets(inputValue as IWallet));
+    dispatch(addIncomeHistory({ value: inputValue as IWallet, id: nanoid() }));
 
-    setInputValue(null)
+    setInputValue(null);
   };
 
   const disabled = useMemo(() => {
@@ -78,19 +82,35 @@ export const Wallets = () => {
     if (buttonId === ALERT_BUTTON.OK) {
       dispatch(
         updateWallet({
-          wallets: wallet,
-          sum: wallets[wallet].sum as number,
+          id: wallet,
+          sum: +wallets[wallet].sum,
         })
       );
+
+      dispatch(
+        sendExpensesSumToWallet({
+          id: wallet,
+          sum: +wallets[wallet].sum,
+        })
+      );
+
+      dispatch(removeIncomeHistory(wallet));
+
       setOpenSnackbar(!openSnackbar);
     }
-    setOpenAlertModal(!openAlertModal);
+
+    setOpenAlertModal(!openAlertModal)
   };
 
-  const openActiveMenu = (buttonId: string) =>
-    buttonId === "Сlear"
-      ? setOpenAlertModal(!openAlertModal)
-      : navigate(`${walletId.toLowerCase()}`);
+  const openActiveMenu = (walletId: WALLET_ID, buttonId: string) => {
+    setOpenSnackbar(false);
+
+    if (!!incomeHistory[walletId].length) {
+      buttonId === "Сlear"
+        ? setOpenAlertModal(!openAlertModal)
+        : navigate(`${walletId.toLowerCase()}`);
+    } else setOpenSnackbar(!openSnackbar);
+  };
 
   return (
     <>
@@ -123,7 +143,7 @@ export const Wallets = () => {
                             className="menu-list__button"
                             key={button_content}
                             id={walletId}
-                            onClick={() => openActiveMenu(button_content)}
+                            onClick={() => openActiveMenu(id, button_content)}
                           >
                             {button_content}
                           </button>

@@ -1,8 +1,9 @@
 @import "../../style/helpers/variables.scss";
 
 .header {
+  @extend %mainBlock-size;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: $paddingSize*5;

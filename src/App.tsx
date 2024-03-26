@@ -12,7 +12,7 @@ export const App = () => (
           {ROUTES_LIST.map(({ path, Component }) => (
             <Route key={path} path={path} element={<Component />} />
           ))}
-            <Route path='wallets/:id' element={<WalletTable/>} />
+            <Route path='wallets/:walletId' element={<WalletTable/>} />
 
         </Routes>
       </Layout>

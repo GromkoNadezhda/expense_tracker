@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { WALLET_ID } from "@app/wallets/constants";
-import { IWallets, TWalletsHistory } from "@app/wallets/type";
+import {
+  ITotalWalletData,
+  IWallet,
+  IWallets,
+  TWalletsHistory,
+} from "@app/wallets/type";
 import { IFilteringValues, IUserExpenses } from "@app/expenses/type";
-import { ACTIVE_MENU } from "@app/expenses/constants";
 import { ISortingOptions } from "@common/types/types";
+import { ACTIVE_MENU } from "@common/constants/constants";
 
 const INITIAL_STATE: {
   wallets: IWallets;
@@ -41,26 +46,54 @@ const expensesSlice = createSlice({
     sortingOptions: INITIAL_STATE.sortingOptions,
   },
   reducers: {
-    addWallets(state, action) {
+    addWallets(state, action: { payload: IWallet }) {
       state.wallets = {
         ...state.wallets,
         [action.payload.id]: {
           id: action.payload.id,
-          sum:
-            state.wallets[action.payload.id as WALLET_ID].sum +
-            action.payload.sum,
+          sum: state.wallets[action.payload.id].sum + action.payload.sum,
         },
       };
     },
 
-    addIncomeHistory(state, action) {
+    updateWallet(
+      state,
+      action: {
+        payload: ITotalWalletData;
+      }
+    ) {
+      state.wallets[action.payload.id].sum =
+        state.wallets[action.payload.id].sum - action.payload.sum;
+    },
+
+    addIncomeHistory(
+      state,
+      action: { payload: { value: IWallet; id: string } }
+    ) {
       state.incomeHistory = {
         ...state.incomeHistory,
-        [action.payload.id]: [
-          ...state.incomeHistory[action.payload.id as WALLET_ID],
-          { sum: action.payload.sum, date: action.payload.date },
+        [action.payload.value.id]: [
+          ...state.incomeHistory[action.payload.value.id],
+          {
+            sum: action.payload.value.sum,
+            date: action.payload.value.date,
+            id: action.payload.id,
+          },
         ],
       };
+    },
+
+    updateIncomeHistory(
+      state,
+      action: { payload: { wallet: WALLET_ID; id: string } }
+    ) {
+      state.incomeHistory[action.payload.wallet] = state.incomeHistory[
+        action.payload.wallet
+      ].filter(({ id }) => id !== action.payload.id);
+    },
+
+    removeIncomeHistory(state, action: { payload: WALLET_ID }) {
+      state.incomeHistory[action.payload] = [];
     },
 
     addExpenses(state, action) {
@@ -72,22 +105,23 @@ const expensesSlice = createSlice({
       ];
     },
 
-    updateWallet(
+    sendExpensesSumToWallet(
       state,
       action: {
-        payload: { wallets: WALLET_ID; sum: number };
+        payload: ITotalWalletData;
       }
     ) {
-      state.wallets[action.payload.wallets].sum =
-        state.wallets[action.payload.wallets].sum - action.payload.sum;
+      const updatedExpenses = state.userExpenses.filter(
+        (expenses) => expenses.wallets === action.payload.id
+      );
 
-      state.incomeHistory[action.payload.wallets] = [];
-    },
+      const expensesSum = updatedExpenses.reduce(
+        (accumulator, currentValue) => +accumulator + +currentValue.sum,
+        0
+      );
 
-    removeWallet(state, action) {
-      state.wallets[action.payload.wallets as WALLET_ID].sum =
-        +state.wallets[action.payload.wallets as WALLET_ID].sum +
-        +action.payload.sum;
+      if (!state.wallets[action.payload.id].sum)
+        state.wallets[action.payload.id].sum = -expensesSum;
     },
 
     removeExpenses(state, action) {
@@ -98,8 +132,8 @@ const expensesSlice = createSlice({
       }
     },
 
-    addFilteringValues(state, action) {
-      state.filteringValues = action.payload as IFilteringValues;
+    addFilteringValues(state, action: { payload: IFilteringValues }) {
+      state.filteringValues = action.payload;
     },
 
     updateSortingOptions(state, action) {
@@ -115,10 +149,12 @@ const expensesSlice = createSlice({
 
 export const {
   addWallets,
-  addIncomeHistory,
-  addExpenses,
   updateWallet,
-  removeWallet,
+  addIncomeHistory,
+  updateIncomeHistory,
+  removeIncomeHistory,
+  addExpenses,
+  sendExpensesSumToWallet,
   removeExpenses,
   addFilteringValues,
   updateSortingOptions,

@@ -1,0 +1,8 @@
+@import '../../../../style/helpers/variables.scss';
+
+.wallet-table{
+    @extend %mainBlock-size;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}

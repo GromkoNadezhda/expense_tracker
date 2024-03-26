@@ -1,7 +1,6 @@
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { useEffect, useState } from "react";
-import { WALLET_ID } from "@app/wallets/constants";
+import "./BasicChart.scss";
 
 Chart.register(...registerables);
 
@@ -12,24 +11,24 @@ interface IBasicChartProps {
 }
 
 export const BasicChart = ({ labels, label, data }: IBasicChartProps) => {
-//   const [chartData, setChartData] = useState<
-//     {
-//       [key:string]: [{
-//         labels: string[];
-//         label: string;
-//         data: number[];
-//       }];
-//     }[]
-//   >([]);
+  //   const [chartData, setChartData] = useState<
+  //     {
+  //       [key:string]: [{
+  //         labels: string[];
+  //         label: string;
+  //         data: number[];
+  //       }];
+  //     }[]
+  //   >([]);
 
-//   useEffect(() => {
-//     setChartData([
-//       {[label]:[...chartData[label],{labels:labels, label:label, data:data}] }])
-//   }, [labels, label, data]);
-// console.log(chartData);
+  //   useEffect(() => {
+  //     setChartData([
+  //       {[label]:[...chartData[label],{labels:labels, label:label, data:data}] }])
+  //   }, [labels, label, data]);
+  // console.log(chartData);
 
   return (
-    <div>
+    <div className="chart">
       <Line
         data={{
           labels: labels,

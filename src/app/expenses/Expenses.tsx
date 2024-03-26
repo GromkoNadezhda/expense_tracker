@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { NAVIGATION } from "@common/constants/constants";
+import { ACTIVE_MENU, NAVIGATION } from "@common/constants/constants";
 import { BasicButton, BasicModal } from "@common/components";
 import { addExpenses, updateWallet } from "@common/store/expensesSlice";
 import { selectAllExpenses } from "@common/store/selectors";
@@ -9,7 +9,6 @@ import { ModalBody } from "./components/modalBody/ExpensesModalBody";
 import { IUserExpenses } from "./type";
 import { ExpensesTable } from "./components/expensesTable/ExpensesTable";
 import {
-  ACTIVE_MENU,
   BUTTON_VARIANT,
   EXPENSES_BASIC_BUTTON,
   EXPENSES_BASIC_BUTTON_LIST,

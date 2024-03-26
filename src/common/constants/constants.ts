@@ -29,3 +29,10 @@ export enum ALERT_BUTTON {
 }
 
 export const ALERT_BUTTON_LIST = Object.values(ALERT_BUTTON);
+
+export enum ACTIVE_MENU {
+  EDIT = "Edit",
+  REMOVE = "Remove",
+}
+
+export const ACTIVE_MENU_LIST = Object.values(ACTIVE_MENU);
